@@ -1,4 +1,18 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
 .map-container {
   width: 70vw;
   height: 70vh;
+}
+
+.populate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

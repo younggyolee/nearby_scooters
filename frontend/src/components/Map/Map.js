@@ -64,22 +64,6 @@ export default function Map({
         }}
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       >
-        <Marker
-          longitude={marker.longitude}
-          latitude={marker.latitude}
-          offsetTop={-20}
-          offsetLeft={-10}
-          draggable
-          onDrag={onMarkerDrag}
-          onDragEnd={onMarkerDragEnd}
-        >
-          <Pin size={30} />
-        </Marker>
-
-        <Source id="circle-source" type="geojson" data={circleGeojson}>
-          <Layer {...circleLayerStyle} />
-        </Source>
-
         {
           nearbyScooters.map((s, index) => {
             const width = Math.pow(2,(viewport.zoom - 8))
@@ -99,6 +83,22 @@ export default function Map({
             );
           })
         }
+
+        <Marker
+          longitude={marker.longitude}
+          latitude={marker.latitude}
+          offsetTop={-20}
+          offsetLeft={-10}
+          draggable
+          onDrag={onMarkerDrag}
+          onDragEnd={onMarkerDragEnd}
+        >
+          <Pin size={30} />
+        </Marker>
+
+        <Source id="circle-source" type="geojson" data={circleGeojson}>
+          <Layer {...circleLayerStyle} />
+        </Source>
 
         <ScaleControl maxWidth={100} unit='metric' stype={{left: 20, bottom: 100}} />
       </ReactMapGL>

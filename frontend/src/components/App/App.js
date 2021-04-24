@@ -13,7 +13,7 @@ export default function App() {
   const [viewport, setViewport] = useState({
     latitude: 1.29803,
     longitude: 103.85597,
-    zoom: 10,
+    zoom: 10
   });
   const [numberOfScooters, setNumberOfScooters] = useState(25);
   const [radiusKm, setRadiusKm] = useState(5);
@@ -31,13 +31,14 @@ export default function App() {
 
   const debounced = useRef(
     _.debounce(
-      (numberOfScooters, radiusKm, lat, lon) => getNearbyScooters(numberOfScooters, radiusKm, lat, lon),
+      (numberOfScooters, radiusKm, latitude, longitude) =>
+        getNearbyScooters(numberOfScooters, radiusKm, latitude, longitude),
       500
     )
   );
 
-  async function getNearbyScooters(numberOfScooters, radiusKm, lat, lon) {
-    const payload = { numberOfScooters, radiusKm, lat, lon };
+  async function getNearbyScooters(numberOfScooters, radiusKm, latitude, longitude) {
+    const payload = { numberOfScooters, radiusKm, latitude, longitude };
     const { data } = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/scooters/nearby/`, payload);
     setNearbyScooters(data.scooters);
   };

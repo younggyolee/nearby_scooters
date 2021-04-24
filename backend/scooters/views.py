@@ -21,10 +21,13 @@ def nearby(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            lat = float(data['latitude'])
-            lon = float(data['longitude'])
-            radius_km = float(data['radiusKm'])
-            number_of_scooters = float(data['numberOfScooters'])
+            try:
+                lat = float(data['latitude'])
+                lon = float(data['longitude'])
+                radius_km = float(data['radiusKm'])
+                number_of_scooters = float(data['numberOfScooters'])
+            except Exception as e:
+                return HttpResponse(status=400)
 
             user_location = Point(x=lon, y=lat, srid=4326)
             scooters = Scooter.objects.filter(

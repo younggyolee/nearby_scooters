@@ -84,6 +84,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'beam_db',
         'USER': 'beam',
+        'PASSWORD': 'beam2021',
     }
 }
 

@@ -31,10 +31,10 @@ def nearby(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            lat = data['lat']
-            lon = data['lon']
-            radius_km = data['radiusKm']
-            number_of_scooters = data['numberOfScooters']
+            lat = float(data['lat'])
+            lon = float(data['lon'])
+            radius_km = float(data['radiusKm'])
+            number_of_scooters = float(data['numberOfScooters'])
 
             user_location = Point(x=lon, y=lat, srid=4326)
             scooters = Scooter.objects.filter(
@@ -44,8 +44,8 @@ def nearby(request):
             ).order_by('distance')[0 : number_of_scooters]
             result = []
             for scooter in scooters:
-                result.append({'lon': scooter.location.y, 'lat': scooter.location.x})
-            return JsonResponse({'data': result}, status=200)
+                result.append({'lon': scooter.location.x, 'lat': scooter.location.y})
+            return JsonResponse({'scooters': result}, status=200)
         except Exception as e:
             print(e)
             return HttpResponse(status=500)
@@ -55,7 +55,7 @@ def populate(request):
     if request.method == 'POST':
         try:
             body = json.loads(request.body)
-            n = body['numberOfScooters']
+            n = float(body['populateNumber'])
             Scooter.objects.all().delete()
 
             sg = WorldBorder.objects.get(name='Singapore')

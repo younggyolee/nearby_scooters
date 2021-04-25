@@ -13,6 +13,7 @@ $ brew install postgis
 $ brew install gdal
 $ brew install libgeoip
 
+$ brew services start postgresql
 $ createdb beam_db
 $ psql
 your_user_name=# CREATE ROLE beam WITH LOGIN PASSWORD 'beam2021';
@@ -50,5 +51,12 @@ $ npm start
 ## How to run unit test (backend)
 
 ```
-../backend $ python manage.py test
+$ cd backend
+$ python manage.py test
+```
+
+## How to run unit test (frontend)
+```
+$ cd frontend
+$ npm test
 ```

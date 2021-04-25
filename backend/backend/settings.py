@@ -9,6 +9,13 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+import environ
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+# reading .env file
+environ.Env.read_env()
 
 from pathlib import Path
 
@@ -20,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9(^_@kjbod23akd6qcv9j*(+eg=d06oii-o&)&hbp*r-2#=%rn'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,9 +89,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'beam_db',
-        'USER': 'beam',
-        'PASSWORD': 'beam2021',
+        # 'NAME': 'beam_db',
+        'NAME': env('DB_NAME'),
+        # 'USER': 'beam',
+        'USER': env('DB_USER'),
+        # 'PASSWORD': 'beam2021',
+        'PASSWORD': env('DB_PASSWORD'),
     }
 }
 

@@ -37,6 +37,10 @@ export default function Map({
     });
   }, [setMarker, sgMaxBounds.swLat, sgMaxBounds.swLon, sgMaxBounds.neLat, sgMaxBounds.neLon]);
 
+  const convertMeterToPixel = (zoom, latitude, meter) => {
+    return (2 ** zoom) / 78271.484 / Math.cos(latitude * Math.PI / 180) * meter;
+  };
+
   const circleGeojson = {
     type: 'FeatureCollection',
     features: [
@@ -47,7 +51,7 @@ export default function Map({
     id: 'point',
     type: 'circle',
     paint: {
-      'circle-radius': (2 ** viewport.zoom) / 78271.484 / (Math.cos(marker.latitude * Math.PI / 180)) * (radiusKm * 1000),
+      'circle-radius': convertMeterToPixel(viewport.zoom, marker.latitude, radiusKm * 1000),
       'circle-color': '#007cbf',
       'circle-opacity': 0.5
     }
@@ -88,8 +92,8 @@ export default function Map({
         <Marker
           longitude={marker.longitude}
           latitude={marker.latitude}
-          offsetTop={-20}
-          offsetLeft={-10}
+          offsetTop={-15}
+          offsetLeft={-15}
           draggable
           onDrag={onMarkerDrag}
           onDragEnd={onMarkerDragEnd}

@@ -69,16 +69,17 @@ export default function Map({
             const width = Math.pow(2,(viewport.zoom - 8))
             return (
                 <Marker
-                key={index}
-                latitude={s.latitude}
-                longitude={s.longitude}
-                offsetTop={-2 * width}
+                  key={index}
+                  latitude={s.latitude}
+                  longitude={s.longitude}
+                  offsetTop={-2 * width}
+                  data-testid='scooter-marker'
                 >
-                <img
-                  src={process.env.PUBLIC_URL + 'scooter.png'}
-                  width={`${width}px`}
-                  alt='beam-scooter'
-                />
+                  <img
+                    src={process.env.PUBLIC_URL + 'scooter.png'}
+                    width={`${width}px`}
+                    alt='beam-scooter'
+                  />
                 </Marker>
             );
           })
